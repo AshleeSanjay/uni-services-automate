@@ -7,6 +7,7 @@ import React, { useState, useEffect } from "react";
 import vehicle from "../assets/Car-book-img.jpg";
 import counsellor from "../assets/counsellor-book-img.jpg";
 import room from "../assets/room-book-img.jpg";
+import "../styles/services.css";
 const Services = () => {
   const navigate = useNavigate();
   const [usrName, setUsrName] = useState("");
@@ -54,6 +55,7 @@ const Services = () => {
       });
     }
   };
+
   return (
     <div class="card-group">
       <div class="card text-start">
@@ -75,7 +77,7 @@ const Services = () => {
               value="vehicle"
               onClick={handleClick}
             >
-              Book a Vehicle
+              Book Now
             </button>
           </p>
         </div>
@@ -99,7 +101,7 @@ const Services = () => {
               value="counsellor"
               onClick={handleClick}
             >
-              Schedule meeting with Counsellor
+              Book Now
             </button>
           </p>
         </div>
@@ -123,7 +125,7 @@ const Services = () => {
               value="room"
               onClick={handleClick}
             >
-              Book a Room
+              Book Now
             </button>
           </p>
         </div>

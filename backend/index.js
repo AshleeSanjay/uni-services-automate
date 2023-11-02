@@ -55,7 +55,7 @@ app.post("/login", (req, res) => {
   });
 });
 app.get("/vehiclebookingdetails", (req, res) => {
-  const q = `SELECT v.vehiclename as vehicleName,usr.username as userName, usr.userid as userId, vbd.bookeddate as bookedDate,vbd.bookedtime as bookedTime,vbd.returndate as returnDate FROM vehiclebookingdetails as vbd LEFT JOIN userdetails as usr ON vbd.userfid = usr.userid LEFT JOIN vehicles as v ON vbd.vregid = v.vid WHERE username ="${req.query.username}"`;
+  const q = `SELECT vbd.vbookingid as id,v.vehiclename as vehicleName,usr.username as userName, usr.userid as userId, vbd.bookeddate as bookedDate,vbd.bookedtime as bookedTime,vbd.returndate as returnDate FROM vehiclebookingdetails as vbd LEFT JOIN userdetails as usr ON vbd.userfid = usr.userid LEFT JOIN vehicles as v ON vbd.vregid = v.vid WHERE username ="${req.query.username}" AND bookedStatusFlag = 1`;
 
   db.query(q, (err, data) => {
     if (err) {
@@ -64,15 +64,27 @@ app.get("/vehiclebookingdetails", (req, res) => {
     } else return res.json(data);
   });
 });
+app.put("/updatevehiclebookingdetails", (req, res) => {
+  console.log("ID: ", req.query.id);
+  const q = `UPDATE vehiclebookingdetails SET bookedStatusFlag = 0 WHERE vbookingid=${req.query.id}`;
+
+  db.query(q, (err, data) => {
+    if (err) {
+      console.log("Error: ", err);
+      return res.json(err);
+    } else return res.json("Booking cancelled successfully");
+  });
+});
 app.post("/vehiclebookingdetails", (req, res) => {
   const q =
-    "INSERT INTO vehiclebookingdetails (`vregid`,`userfid`,`bookeddate`,`bookedtime`,`returndate`) VALUES (?)";
+    "INSERT INTO vehiclebookingdetails (`vregid`,`userfid`,`bookeddate`,`bookedtime`,`returndate`,`bookedStatusFlag`) VALUES (?)";
   const values = [
     req.body.vregid,
     req.body.userfid,
     req.body.bookeddate,
     req.body.bookedtime,
     req.body.returndate,
+    req.body.bookedStatusFlag,
   ];
   console.log("Values: ", values);
   db.query(q, [values], (err, data) => {
@@ -94,7 +106,7 @@ app.get("/counsellors", (req, res) => {
   });
 });
 app.get("/counsellorbookingdetails", (req, res) => {
-  const q = `SELECT c.counsellorname,usr.username, usr.userid, cd.bookingfromdate,cd.bookingfromtime,cd.bookedtodate FROM universityapp.counsellorbookingdetails as cd LEFT JOIN universityapp.userdetails as usr ON cd.userid = usr.userid LEFT JOIN universityapp.counsellordetails as c ON cd.counsellorid = c.counsellorid  WHERE username ="${req.query.username}"`;
+  const q = `SELECT cd.counsellorbookingid as id,c.counsellorname,usr.username, usr.userid, cd.bookingfromdate,cd.bookingfromtime,cd.bookedtodate FROM universityapp.counsellorbookingdetails as cd LEFT JOIN universityapp.userdetails as usr ON cd.userid = usr.userid LEFT JOIN universityapp.counsellordetails as c ON cd.counsellorid = c.counsellorid  WHERE username ="${req.query.username}" AND cd.bookedStatusFlag=1;`;
 
   db.query(q, (err, data) => {
     if (err) {
@@ -103,15 +115,27 @@ app.get("/counsellorbookingdetails", (req, res) => {
     } else return res.json(data);
   });
 });
+app.put("/updatecounsellorbookingdetails", (req, res) => {
+  console.log("ID: ", req.query.id);
+  const q = `UPDATE counsellorbookingdetails SET bookedStatusFlag = 0 WHERE counsellorbookingid=${req.query.id}`;
+
+  db.query(q, (err, data) => {
+    if (err) {
+      console.log("Error: ", err);
+      return res.json(err);
+    } else return res.json("Booking cancelled successfully");
+  });
+});
 app.post("/counsellorbookingdetails", (req, res) => {
   const q =
-    "INSERT INTO counsellorbookingdetails (`counsellorid`,`userid`,`bookingfromdate`,`bookingfromtime`,`bookedtodate`) VALUES (?)";
+    "INSERT INTO counsellorbookingdetails (`counsellorid`,`userid`,`bookingfromdate`,`bookingfromtime`,`bookedtodate`,`bookedStatusFlag`) VALUES (?)";
   const values = [
     req.body.counsellorid,
     req.body.userid,
     req.body.bookingfromdate,
     req.body.bookingfromtime,
     req.body.bookedtodate,
+    req.body.bookedStatusFlag,
   ];
   console.log("Values: ", values);
   db.query(q, [values], (err, data) => {
@@ -133,12 +157,12 @@ app.get("/rooms", (req, res) => {
   });
 });
 app.get("/roombookingdetails", (req, res) => {
-  const q = `SELECT r.roomname,r.roomcapacity,usr.username, usr.userid, rd.roombookedfromdate,rd.roombookedfromtime,rd.roombookedtodate, rd.roombookedtotime
+  const q = `SELECT rd.roombookingid as id,r.roomname,r.roomcapacity,usr.username, usr.userid, rd.roombookedfromdate,rd.roombookedfromtime,rd.roombookedtodate, rd.roombookedtotime
   FROM roombookingdetails as rd
   LEFT JOIN userdetails as usr 
   ON rd.userfid = usr.userid
   LEFT JOIN roomdetails as r
-  ON rd.roomid = r.roomid  WHERE username ="${req.query.username}"`;
+  ON rd.roomid = r.roomid  WHERE username ="${req.query.username}" AND rd.bookedStatusFlag = 1`;
 
   db.query(q, (err, data) => {
     if (err) {
@@ -149,7 +173,7 @@ app.get("/roombookingdetails", (req, res) => {
 });
 app.post("/roombookingdetails", (req, res) => {
   const q =
-    "INSERT INTO roombookingdetails (`roomid`,`userfid`,`roombookedfromdate`,`roombookedfromtime`,`roombookedtodate`,`roombookedtotime`) VALUES (?)";
+    "INSERT INTO roombookingdetails (`roomid`,`userfid`,`roombookedfromdate`,`roombookedfromtime`,`roombookedtodate`,`roombookedtotime`,`bookedStatusFlag`) VALUES (?)";
   const values = [
     req.body.roomid,
     req.body.userfid,
@@ -157,6 +181,7 @@ app.post("/roombookingdetails", (req, res) => {
     req.body.roombookedfromtime,
     req.body.roombookedtodate,
     req.body.roombookedtotime,
+    req.body.bookedStatusFlag,
   ];
   console.log("Values: ", values);
   db.query(q, [values], (err, data) => {
@@ -167,6 +192,17 @@ app.post("/roombookingdetails", (req, res) => {
   });
 });
 
+app.put("/updateroombookingdetails", (req, res) => {
+  console.log("ID: ", req.query.id);
+  const q = `UPDATE roombookingdetails SET bookedStatusFlag = 0 WHERE roombookingid=${req.query.id}`;
+
+  db.query(q, (err, data) => {
+    if (err) {
+      console.log("Error: ", err);
+      return res.json(err);
+    } else return res.json("Booking cancelled successfully");
+  });
+});
 app.listen(8000, () => {
   console.log("Connected to backend!!!");
 });

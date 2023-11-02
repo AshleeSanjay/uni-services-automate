@@ -1,36 +1,34 @@
+import React from "react";
 import contactus from "../assets/contactus.jpg";
+import "../styles/contact.css"; // Import your custom CSS for styling
 
 const Contact = () => {
   return (
-    <div>
-      <div className="backgnd-image">
-        <h1 style={{ color: "white" }}>Contact Us</h1>
-        <div>
-          <p style={{ color: "white", textAlign: "justify", margin: "20px" }}>
-            Need assistance or have a question? Our dedicated team at MGU is
-            here to help. Feel free to reach out to us for any inquiries,
-            admissions guidance, or to simply connect. Your journey with us
-            starts with a conversation—let's begin shaping your academic future
-            together. Visit our campus, drop us a line, or connect through
-            social media. We look forward to hearing from you.
-          </p>
-          <div
-            style={{
-              borderStyle: "groove",
-              borderWidth: "2px",
-              margin: "20px",
-              width: "25%",
-            }}
-          >
-            <h5 style={{ color: "white", textAlign: "start", margin: "20px" }}>
-              Address: XYZ Street
-            </h5>
-            <h5 style={{ color: "white", textAlign: "start", margin: "20px" }}>
-              Phone: 123456
-            </h5>
-            <h5 style={{ color: "white", textAlign: "start", margin: "20px" }}>
-              Email: abcd@gmail.com
-            </h5>
+    <div className="contact-container">
+      <div className="contact-image">
+        <h1>Contact Us</h1>
+      </div>
+      <div className="contact-content">
+        <p>
+          Need assistance or have a question? Our dedicated team at MGU is here
+          to help. Feel free to reach out to us for any inquiries, admissions
+          guidance, or to simply connect. Your journey with us starts with a
+          conversation—let's begin shaping your academic future together. Visit
+          our campus, drop us a line, or connect through social media. We look
+          forward to hearing from you.
+        </p>
+        <div className="contact-details">
+          <div>
+            <h5>Address:</h5>
+            <p>XYZ Street</p>
+          </div>
+          <div>
+            <h5>Phone:</h5>
+            <p>123456</p>
+          </div>
+          <div>
+            <h5>Email:</h5>
+            <p>abcd@gmail.com</p>
           </div>
         </div>
       </div>

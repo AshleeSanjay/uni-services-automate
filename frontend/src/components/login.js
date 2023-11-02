@@ -32,7 +32,7 @@ const Login = () => {
           }).toString(),
         });
       } else {
-        console.log("Invalid username or password");
+        alert("Invalid credentials. Please try again");
       }
     } catch (err) {
       console.log(err);
@@ -72,6 +72,10 @@ const Login = () => {
             Login
           </button>
         </div>
+        <footer className="text-center mt-4">
+          {/* Copyright and Links */}
+          <p>&copy; 2023 University. All rights reserved.</p>
+        </footer>
       </div>
     </div>
   );

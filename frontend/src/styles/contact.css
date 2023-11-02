@@ -1,0 +1,34 @@
+/* Custom styles for the Contact page */
+.contact-container {
+  background-image: url("../assets/contactus.jpg");
+  background-size: cover;
+  background-position: center;
+  padding: 40px;
+  color: white;
+}
+
+.contact-image {
+  text-align: center;
+}
+
+.contact-content {
+  margin-top: 20px;
+}
+
+.contact-content p {
+  text-align: justify;
+  margin-bottom: 20px;
+}
+
+.contact-details {
+  display: flex;
+  justify-content: space-between;
+  border: 2px groove white;
+  width: 50%;
+  padding: 20px;
+  margin: 20px auto;
+}
+
+.contact-details div {
+  text-align: start;
+}

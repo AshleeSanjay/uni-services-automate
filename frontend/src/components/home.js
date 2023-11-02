@@ -1,50 +1,37 @@
+import React from "react";
 import students from "../assets/students.jpg";
 import students2 from "../assets/students2.webp";
-const Home = () => {
-  return (
-    <div style={{ backgroundColor: "#524640" }}>
-      <div>
-        <h1 style={{ color: "white" }}>Home</h1>
-      </div>
-      <div className="d-flex flex-row justify-content-evenly">
-        <div className="align-self-stretch">
-          <img src={students} alt="students" className="img-students"></img>
-        </div>
-        <div
-          style={{
-            marginTop: "160px",
-            width: "800px",
-            marginLeft: "30px",
-            marginRight: "30px",
-            textAlign: "justify",
-          }}
-        >
-          <p style={{ color: "white" }}>
-            Embark on a journey of discovery and excellence at Mahatma Gandhi
-            University, where education transcends boundaries and empowers you
-            to redefine the future.
-          </p>
-        </div>
-      </div>
-      <div className="d-flex flex-row justify-content-end">
-        <div
-          style={{
-            marginTop: "160px",
-            width: "800px",
-            marginLeft: "30px",
-            marginRight: "30px",
-            textAlign: "justify",
-          }}
-        >
-          <p style={{ color: "white" }}>
-            At Mahatma Gandhi University, we believe in the extraordinary
-            potential within every student, inspiring them to thrive
-            academically and shape a world of limitless possibilities.
-          </p>
-        </div>
+import "../styles/home.css"; // Import your custom CSS for styling
 
-        <div className="align-self-left">
-          <img src={students2} alt="students2" className="img-students"></img>
+const Home = () => {
+  // Disable scrollbars when the component mounts
+  React.useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      // Re-enable scrollbars when the component unmounts
+      document.body.style.overflow = "visible";
+    };
+  }, []);
+
+  return (
+    <div className="home-container">
+      <div>
+        <h1 className="home-heading">Home</h1>
+      </div>
+      <div className="home-section">
+        <div className="home-image">
+          <img src={students} alt="students" className="img-students" />
+        </div>
+        <div className="home-text">
+          <p>
+            Welcome to Mahatma Gandhi University, where we foster a culture of
+            curiosity, innovation, and academic excellence. Our commitment is to
+            empower students like you to embark on a journey of self-discovery
+            and success.
+          </p>
+        </div>
+        <div className="home-image">
+          <img src={students2} alt="students2" className="img-students" />
         </div>
       </div>
     </div>

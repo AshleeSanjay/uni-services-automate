@@ -37,6 +37,9 @@ const Navigationbar = () => {
               <Nav.Link href="/login" style={{ color: "white" }}>
                 Login
               </Nav.Link>
+              <Nav.Link href="/login" style={{ color: "white" }}>
+                Signout
+              </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

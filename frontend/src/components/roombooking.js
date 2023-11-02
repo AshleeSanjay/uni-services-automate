@@ -2,15 +2,19 @@ import React, { useEffect, useState } from "react";
 import { Modal, Button, Form, Table } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
 import addIcon from "../assets/addicon.jpg";
+import deleteIcon from "../assets/deleteicon.png";
 import axios from "axios";
 import { format } from "date-fns";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, Link } from "react-router-dom";
 
 const RoomBooking = ({ route }) => {
   const [show, setShow] = useState(false);
   const [roomDetails, setRoomDetails] = useState(false);
   const [rooms, setRooms] = useState(false);
   const [users, setUsers] = useState(false);
+  const [usrName, setUsrName] = useState("");
+  const [psw, setPsw] = useState("");
+  const [usrId, setUsrId] = useState("");
 
   const handleShow = () => setShow(true);
   const handleHide = () => setShow(false);
@@ -21,7 +25,12 @@ const RoomBooking = ({ route }) => {
   };
 
   const [searchParams] = useSearchParams();
-
+  useEffect(() => {
+    setUsrName(searchParams.get("username"));
+    setPsw(searchParams.get("password"));
+    setUsrId(searchParams.get("userid"));
+  }, [searchParams]);
+  console.log("Username: ", usrName, "Password: ", psw, "Userid: ", usrId);
   useEffect(() => {
     const fetchRoomDetails = async () => {
       try {
@@ -71,7 +80,14 @@ const RoomBooking = ({ route }) => {
     const [toTime, setToTime] = useState("");
 
     function handleChange(event) {
-      setRoomId(event.target.value);
+      const selectedValue = event.target.value;
+      // Ensure that an empty value is not selected
+      if (selectedValue.trim() !== "") {
+        setRoomId(selectedValue);
+      } else {
+        // Optionally, you can display an alert or handle the error in another way
+        alert("Please select a valid room");
+      }
     }
     function handleDateChange(event) {
       setDateBooked(event.target.value);
@@ -88,6 +104,63 @@ const RoomBooking = ({ route }) => {
 
     const saveRoomDetails = async (e) => {
       try {
+        const today = new Date();
+        const currentTime = new Date();
+        if (dateBooked.trim() !== "" || toDate.trim() !== "") {
+          if (timeBooked.trim() !== "" || toTime.trim() !== "") {
+            if (new Date(dateBooked) < today) {
+              alert("Start date should be today or a future date");
+              return;
+            }
+
+            // Validation check for start date not greater than end date
+            if (new Date(dateBooked) > new Date(toDate)) {
+              alert("End date should be equal or greater than the start date");
+              return;
+            }
+
+            // Validation check for start time not greater than end time
+            if (
+              new Date(`${dateBooked} ${timeBooked}`) >=
+              new Date(`${toDate} ${toTime}`)
+            ) {
+              alert("End time should be greater than the start time");
+              return;
+            }
+
+            // Validation check for start time not earlier than the current time
+            if (
+              new Date(`${dateBooked} ${timeBooked}`) <=
+              new Date(
+                `${today.toISOString().split("T")[0]} ${
+                  currentTime.toISOString().split("T")[1].split(".")[0]
+                }`
+              )
+            ) {
+              alert("Start time should be greater than the current time");
+              return;
+            }
+
+            // Validation check for valid date and time formats
+            if (
+              !/^\d{4}-\d{2}-\d{2}$/.test(dateBooked) ||
+              !/^\d{2}:\d{2}$/.test(timeBooked) ||
+              !/^\d{4}-\d{2}-\d{2}$/.test(toDate) ||
+              !/^\d{2}:\d{2}$/.test(toTime)
+            ) {
+              alert("Invalid date or time format");
+              return;
+            }
+          } else {
+            alert("Please enter time");
+            return;
+          }
+        } else {
+          alert("Please enter date");
+          return;
+        }
+        // Validation check for start date not earlier than today's date
+
         await axios.post("http://localhost:8000/roombookingdetails", {
           roomid: roomId,
           userfid: searchParams.get("userid"),
@@ -95,6 +168,7 @@ const RoomBooking = ({ route }) => {
           roombookedfromtime: timeBooked,
           roombookedtodate: toDate,
           roombookedtotime: toTime,
+          bookedStatusFlag: 1,
         });
         window.location.reload(false);
       } catch (err) {
@@ -123,11 +197,11 @@ const RoomBooking = ({ route }) => {
               onChange={handleChange}
               value={roomId}
             >
+              <option value="">Select</option>
               {arrRooms.map((room) => (
                 <option value={room.roomid}>{room.roomname}</option>
               ))}
             </select>
-            <p>{roomId}</p>
           </div>
         </Form.Group>
 
@@ -140,7 +214,7 @@ const RoomBooking = ({ route }) => {
             onChange={handleDateChange}
           />
         </Form.Group>
-        <p>{dateBooked}</p>
+
         <Form.Group controlId="formTime">
           <Form.Label>Start Time</Form.Label>
           <Form.Control
@@ -150,7 +224,7 @@ const RoomBooking = ({ route }) => {
             onChange={handleFromTimeChange}
           />
         </Form.Group>
-        <p>{timeBooked}</p>
+
         <Form.Group controlId="formReturnDate">
           <Form.Label>End Date</Form.Label>
           <Form.Control
@@ -160,7 +234,7 @@ const RoomBooking = ({ route }) => {
             onChange={handleToDateChange}
           />
         </Form.Group>
-        <p>{toDate}</p>
+
         <Form.Group controlId="formToTime">
           <Form.Label>End Time</Form.Label>
           <Form.Control
@@ -170,7 +244,7 @@ const RoomBooking = ({ route }) => {
             onChange={handleToTimeChange}
           />
         </Form.Group>
-        <p>{toTime}</p>
+
         <div style={{ height: "8px" }}></div>
         <Button
           style={{ backgroundColor: "#ef762b" }}
@@ -183,7 +257,13 @@ const RoomBooking = ({ route }) => {
       </Form>
     );
   };
-
+  const handleDelete = (id) => {
+    console.log("Room Id: ", id);
+    try {
+      axios.put(`http://localhost:8000/updateroombookingdetails?id=${id}`);
+      window.location.reload(false);
+    } catch (err) {}
+  };
   return (
     <div>
       <div>
@@ -201,6 +281,13 @@ const RoomBooking = ({ route }) => {
             </button>
           </div>
           <div className="div-text">Book a Room</div>
+          <div className="mt-3" style={{ marginLeft: "1000px" }}>
+            <Link
+              to={`/services?username=${usrName}&password=${psw}&userid=${usrId}`}
+            >
+              Back to Services
+            </Link>
+          </div>
         </div>
 
         <Modal show={show} onHide={handleHide}>
@@ -250,6 +337,20 @@ const RoomBooking = ({ route }) => {
                   )}
                 </td>
                 <td>{roomDetail.roombookedtotime}</td>
+                <td>
+                  <button
+                    type="submit"
+                    className="img-btn"
+                    onClick={() => handleDelete(roomDetail.id)}
+                    value={roomDetail.id}
+                  >
+                    <img
+                      src={deleteIcon}
+                      alt="deleteIcon"
+                      style={{ width: "30px", height: "30px" }}
+                    ></img>
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>

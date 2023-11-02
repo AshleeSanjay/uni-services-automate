@@ -1,0 +1,39 @@
+/* Custom styles for the Home page */
+.home-container {
+  background-color: #524640;
+  padding: 40px;
+  width: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-heading {
+  color: white;
+  text-align: center;
+}
+
+.home-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 40px;
+  flex-grow: 1;
+}
+
+.home-text {
+  width: 30%;
+  color: white;
+  text-align: justify;
+}
+
+.home-image {
+  width: 30%;
+}
+
+.img-students {
+  width: 100%;
+  height: auto;
+}

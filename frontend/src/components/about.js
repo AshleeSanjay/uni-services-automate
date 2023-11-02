@@ -1,19 +1,29 @@
+import React from "react";
 import students3 from "../assets/students3.webp";
+import "../styles/aboutus.css"; // Import your custom CSS for styling
+
 const About = () => {
   return (
-    <div>
-      <div>
-        <h1>About Us</h1>
+    <div className="container mt-5">
+      <div className="text-center mb-5">
+        <h1 className="display-4">About Us</h1>
       </div>
-      <div className="d-flex flex-column justify-content-evenly">
-        <p style={{ textAlign: "justify", height: "137px", marginTop: "50px" }}>
-          At Mahatma Gandhi University, our 'About Us' is more than a story—it's
-          a narrative of academic prowess, a commitment to innovation, and a
-          testament to the transformative impact of education. Join us in our
-          pursuit of knowledge, where every chapter is marked by a passion for
-          learning and a dedication to shaping the leaders of tomorrow.
-        </p>
-        <img src={students3} alt="students3" style={{ height: "500px" }} />
+      <div className="row">
+        <div className="col-md-12">
+          <p className="lead text-center">
+            Welcome to Mahatma Gandhi University, where education meets
+            innovation. Our story is one of academic excellence, a dedication to
+            shaping bright minds, and a commitment to creating a transformative
+            learning environment. Join us on a journey of knowledge, where each
+            chapter is marked by a passion for learning, and together, we shape
+            the leaders of tomorrow.
+          </p>
+        </div>
+      </div>
+      <div className="row justify-content-center">
+        <div className="col-md-8">
+          <img src={students3} alt="students3" className="img-fluid rounded" />
+        </div>
       </div>
     </div>
   );

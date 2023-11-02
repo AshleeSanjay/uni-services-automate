@@ -7,6 +7,7 @@ import VehicleBooking from "./components/vehiclebooking.js";
 import CounsellorBooking from "./components/counsellorbooking";
 import RoomBooking from "./components/roombooking";
 import Login from "./components/login";
+import Signout from "./components/signout";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
   BrowserRouter as Router,
@@ -30,6 +31,7 @@ function App() {
           <Route path="/counsellorbooking" element={<CounsellorBooking />} />
           <Route path="/roombooking" element={<RoomBooking />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/signout" element={<Signout />} />
         </Routes>
       </Router>
     </div>

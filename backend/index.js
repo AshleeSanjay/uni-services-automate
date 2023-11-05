@@ -19,7 +19,7 @@ const db = mysql.createConnection({
   user: "root",
   password: "12345",
   database: "universityapp",
-  port: "8000",
+  // port: "8000",
   // host: process.env.HOST,
   // user: process.env.USER,
   // password: process.env.PASSWORD,

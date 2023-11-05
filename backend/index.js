@@ -27,7 +27,7 @@ const db = mysql.createConnection({
   database: process.env.DATABASE,
   // port: process.env.PORT,
 });
-connection.db((err) => {
+db.connect((err) => {
   if (err) {
     console.error("Error connecting: " + err.stack);
     return;

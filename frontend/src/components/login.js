@@ -17,6 +17,12 @@ const Login = () => {
       );
 
       const arrUsers = Object.values(res.data);
+      console.log(
+        "Username: ",
+        arrUsers[0].username,
+        "Password: ",
+        arrUsers[0].password
+      );
 
       if (
         arrUsers.length > 0 &&

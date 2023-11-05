@@ -1,4 +1,0 @@
-[[redirects]]
-from = "/backend/*"
-to = "/frontend/src/components/home.js"
-status = 200

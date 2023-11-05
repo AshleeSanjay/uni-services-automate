@@ -15,10 +15,15 @@ console.log(
   process.env.PASSWORD
 );
 const db = mysql.createConnection({
-  host: process.env.HOST,
-  user: process.env.USER,
-  password: process.env.PASSWORD,
-  database: process.env.DATABASE,
+  host: "localhost",
+  user: "root",
+  password: "12345",
+  database: "universityapp",
+  // host: process.env.HOST,
+  // user: process.env.USER,
+  // password: process.env.PASSWORD,
+  // database: process.env.DATABASE,
+  // port: process.env.PORT,
 });
 
 app.use(express.json());

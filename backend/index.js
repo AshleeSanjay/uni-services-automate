@@ -32,7 +32,7 @@ db.connect((err) => {
     console.error("Error connecting: " + err.stack);
     return;
   }
-  console.log("Connected as id " + connection.threadId);
+  console.log("Connected as id " + db.threadId);
 });
 
 app.use(express.json());

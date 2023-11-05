@@ -14,6 +14,7 @@ console.log(
   ", Password: ",
   process.env.PASSWORD
 );
+const port = process.env.PORT || 8000;
 const db = mysql.createConnection({
   host: "127.0.0.1",
   user: "root",
@@ -219,6 +220,7 @@ app.put("/updateroombookingdetails", (req, res) => {
     } else return res.json("Booking cancelled successfully");
   });
 });
-app.listen(8000, () => {
-  console.log("Connected to backend!!!");
+
+app.listen(port, () => {
+  console.log(`Server is running on the port ${port}`);
 });

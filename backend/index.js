@@ -27,6 +27,13 @@ const db = mysql.createConnection({
   database: process.env.DATABASE,
   // port: process.env.PORT,
 });
+connection.db((err) => {
+  if (err) {
+    console.error("Error connecting: " + err.stack);
+    return;
+  }
+  console.log("Connected as id " + connection.threadId);
+});
 
 app.use(express.json());
 

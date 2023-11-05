@@ -6,7 +6,14 @@ import cors from "cors";
 const app = express();
 
 let result = dotenv.config();
-console.log("Host: ", process.env.HOST);
+console.log(
+  "Host: ",
+  process.env.HOST,
+  ", User: ",
+  process.env.USER,
+  ", Password: ",
+  process.env.PASSWORD
+);
 const db = mysql.createConnection({
   // host: "localhost",
   // user: "root",

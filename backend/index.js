@@ -5,7 +5,7 @@ import cors from "cors";
 
 const app = express();
 
-let result = dotenv.config();
+dotenv.config();
 console.log(
   "Host: ",
   process.env.HOST,

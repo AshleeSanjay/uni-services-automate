@@ -25,15 +25,15 @@ const db = mysql.createConnection({
   // password: "12345",
   // database: "universityapp",
   // port: "8000",
-  host: process.env.HOST,
-  user: process.env.USER,
-  password: process.env.PASSWORD,
-  database: process.env.DATABASE,
-  db_port: process.env.DB_PORT,
+  host: process.env.HOST || "localhost",
+  user: process.env.USER || "root",
+  password: process.env.PASSWORD || "12345",
+  database: process.env.DATABASE || "universityapp",
+  db_port: process.env.DB_PORT || "3306",
 });
 db.connect((err) => {
   if (err) {
-    console.error("Error connecting db: " + err.stack);
+    console.error("Error connecting db: " + err.message);
     return;
   }
   console.log("Connected as id " + db.threadId);

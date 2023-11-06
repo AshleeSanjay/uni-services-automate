@@ -11,8 +11,12 @@ console.log(
   process.env.HOST,
   ", User: ",
   process.env.USER,
+  "Database: ",
+  process.env.DATABASE,
   ", Password: ",
-  process.env.PASSWORD
+  process.env.PASSWORD,
+  "DB_Port: ",
+  process.env.DB_PORT
 );
 const port = process.env.PORT || 10000;
 const db = mysql.createConnection({

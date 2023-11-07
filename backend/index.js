@@ -33,7 +33,8 @@ const db = mysql.createPool({
   database: process.env.DATABASE || "universityapp",
   db_port: process.env.DB_PORT || "3306",
 });
-db.connect((err) => {
+// db.connect((err) =>
+db.getConnection((err) => {
   if (err) {
     console.error("Error connecting db: " + err.message);
     return;

@@ -26,6 +26,7 @@ const db = mysql.createPool({
   // password: "12345",
   // database: "universityapp",
   // port: "8000",
+  connectionLimit: 10,
   host: process.env.HOST || "localhost",
   user: process.env.USER || "root",
   password: process.env.PASSWORD || "12345",

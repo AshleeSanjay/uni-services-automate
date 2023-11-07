@@ -19,7 +19,8 @@ console.log(
   process.env.DB_PORT
 );
 const port = process.env.PORT || 10000;
-const db = mysql.createConnection({
+// const db = mysql.createConnection({
+const db = mysql.createPool({
   // host: "127.0.0.1",
   // user: "root",
   // password: "12345",

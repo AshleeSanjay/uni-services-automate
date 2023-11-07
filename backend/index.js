@@ -31,7 +31,7 @@ const db = mysql.createPool({
   user: process.env.USER || "root",
   password: process.env.PASSWORD || "12345",
   database: process.env.DATABASE || "universityapp",
-  db_port: process.env.DB_PORT || "3306",
+  port: process.env.DB_PORT || "3306",
 });
 // db.connect((err) =>
 db.getConnection((err) => {

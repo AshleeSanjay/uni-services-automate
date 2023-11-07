@@ -21,17 +21,12 @@ console.log(
 const port = process.env.PORT || 10000;
 // const db = mysql.createConnection({
 const db = mysql.createPool({
-  // host: "127.0.0.1",
-  // user: "root",
-  // password: "12345",
-  // database: "universityapp",
-  // port: "8000",
+  host: process.env.HOST,
+  user: process.env.USER,
+  password: process.env.PASSWORD,
+  database: process.env.DATABASE,
   connectionLimit: 10,
-  host: process.env.HOST || "127.0.0.1",
-  user: process.env.USER || "root",
-  password: process.env.PASSWORD || "12345",
-  database: process.env.DATABASE || "universityapp",
-  port: process.env.DB_PORT || "3306",
+  // db_port: process.env.DB_PORT,
 });
 // db.connect((err) =>
 db.getConnection((err) => {
@@ -45,9 +40,6 @@ db.getConnection((err) => {
 app.use(express.json());
 
 app.use(cors());
-// app.get("/", (req, res) => {
-//   res.json("hello this is the backend");
-// });
 
 app.get("/vehicles", (req, res) => {
   const q = "SELECT * FROM vehicles";

@@ -13,7 +13,7 @@ const Login = () => {
 
     try {
       const res = await axios.post(
-        `http://localhost:8000/login?username=${username}`
+        `http://localhost:10000/login?username=${username}`
       );
 
       const arrUsers = Object.values(res.data);

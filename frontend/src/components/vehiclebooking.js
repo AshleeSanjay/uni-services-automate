@@ -36,7 +36,7 @@ const VehicleBooking = ({ route }) => {
     const fetchVehicleDetails = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8000/vehiclebookingdetails?username=${searchParams.get(
+          `http://localhost:10000/vehiclebookingdetails?username=${searchParams.get(
             "username"
           )}`
         );
@@ -48,7 +48,7 @@ const VehicleBooking = ({ route }) => {
     fetchVehicleDetails();
     const fetchVehicles = async () => {
       try {
-        const res = await axios.get("http://localhost:8000/vehicles");
+        const res = await axios.get("http://localhost:10000/vehicles");
         setVehicles(res.data);
       } catch (err) {
         console.log(err);
@@ -58,7 +58,7 @@ const VehicleBooking = ({ route }) => {
     const fetchUsers = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8000/userdetails/?username=${searchParams.get(
+          `http://localhost:10000/userdetails/?username=${searchParams.get(
             "username"
           )}`
         );
@@ -119,7 +119,7 @@ const VehicleBooking = ({ route }) => {
         }
         // Add a validation check for start date not earlier than today's date
 
-        await axios.post("http://localhost:8000/vehiclebookingdetails", {
+        await axios.post("http://localhost:10000/vehiclebookingdetails", {
           vregid: vehicleId,
           userfid: searchParams.get("userid"),
           bookeddate: dateBooked,
@@ -205,7 +205,7 @@ const VehicleBooking = ({ route }) => {
   const handleDelete = (id) => {
     console.log("Vehicle Registration Id: ", id);
     try {
-      axios.put(`http://localhost:8000/updatevehiclebookingdetails?id=${id}`);
+      axios.put(`http://localhost:10000/updatevehiclebookingdetails?id=${id}`);
       window.location.reload(false);
     } catch (err) {}
   };

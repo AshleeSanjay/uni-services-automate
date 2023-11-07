@@ -35,7 +35,7 @@ const RoomBooking = ({ route }) => {
     const fetchRoomDetails = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8000/roombookingdetails?username=${searchParams.get(
+          `http://localhost:10000/roombookingdetails?username=${searchParams.get(
             "username"
           )}`
         );
@@ -47,7 +47,7 @@ const RoomBooking = ({ route }) => {
     fetchRoomDetails();
     const fetchRooms = async () => {
       try {
-        const res = await axios.get("http://localhost:8000/rooms");
+        const res = await axios.get("http://localhost:10000/rooms");
         setRooms(res.data);
       } catch (err) {
         console.log(err);
@@ -57,7 +57,7 @@ const RoomBooking = ({ route }) => {
     const fetchUsers = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8000/userdetails/?username=${searchParams.get(
+          `http://localhost:10000/userdetails/?username=${searchParams.get(
             "username"
           )}`
         );
@@ -161,7 +161,7 @@ const RoomBooking = ({ route }) => {
         }
         // Validation check for start date not earlier than today's date
 
-        await axios.post("http://localhost:8000/roombookingdetails", {
+        await axios.post("http://localhost:10000/roombookingdetails", {
           roomid: roomId,
           userfid: searchParams.get("userid"),
           roombookedfromdate: dateBooked,
@@ -260,7 +260,7 @@ const RoomBooking = ({ route }) => {
   const handleDelete = (id) => {
     console.log("Room Id: ", id);
     try {
-      axios.put(`http://localhost:8000/updateroombookingdetails?id=${id}`);
+      axios.put(`http://localhost:10000/updateroombookingdetails?id=${id}`);
       window.location.reload(false);
     } catch (err) {}
   };

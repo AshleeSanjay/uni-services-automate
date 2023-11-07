@@ -35,7 +35,7 @@ const CounsellorBooking = ({ route }) => {
     const fetchCounsellorDetails = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8000/counsellorbookingdetails?username=${searchParams.get(
+          `http://localhost:10000/counsellorbookingdetails?username=${searchParams.get(
             "username"
           )}`
         );
@@ -47,7 +47,7 @@ const CounsellorBooking = ({ route }) => {
     fetchCounsellorDetails();
     const fetchCounsellors = async () => {
       try {
-        const res = await axios.get("http://localhost:8000/counsellors");
+        const res = await axios.get("http://localhost:10000/counsellors");
         setCounsellors(res.data);
       } catch (err) {
         console.log(err);
@@ -57,7 +57,7 @@ const CounsellorBooking = ({ route }) => {
     const fetchUsers = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8000/userdetails/?username=${searchParams.get(
+          `http://localhost:10000/userdetails/?username=${searchParams.get(
             "username"
           )}`
         );
@@ -118,7 +118,7 @@ const CounsellorBooking = ({ route }) => {
         }
         // Add a validation check for start date not earlier than today's date
 
-        await axios.post("http://localhost:8000/counsellorbookingdetails", {
+        await axios.post("http://localhost:10000/counsellorbookingdetails", {
           counsellorid: counsellorId,
           userid: searchParams.get("userid"),
           bookingfromdate: dateBooked,
@@ -206,7 +206,7 @@ const CounsellorBooking = ({ route }) => {
     console.log("Counsellor Id: ", id);
     try {
       axios.put(
-        `http://localhost:8000/updatecounsellorbookingdetails?id=${id}`
+        `http://localhost:10000/updatecounsellorbookingdetails?id=${id}`
       );
       window.location.reload(false);
     } catch (err) {}

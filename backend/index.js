@@ -53,7 +53,7 @@ app.get("/vehicles", (req, res) => {
 });
 
 app.get("/userdetails", (req, res) => {
-  const q = "SELECT * FROM userdetails ";
+  const q = "SELECT * FROM userdetails "; //ttt
 
   db.query(q, (err, data) => {
     if (err) {

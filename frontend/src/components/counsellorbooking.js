@@ -208,6 +208,7 @@ const CounsellorBooking = ({ route }) => {
       axios.put(
         `http://localhost:10000/updatecounsellorbookingdetails?id=${id}`
       );
+      alert(`Booking of counsellor with id : ${id} is canceled`);
       window.location.reload(false);
     } catch (err) {}
   };

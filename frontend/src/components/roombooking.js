@@ -30,6 +30,7 @@ const RoomBooking = ({ route }) => {
     setPsw(searchParams.get("password"));
     setUsrId(searchParams.get("userid"));
   }, [searchParams]);
+
   console.log("Username: ", usrName, "Password: ", psw, "Userid: ", usrId);
   useEffect(() => {
     const fetchRoomDetails = async () => {
@@ -57,7 +58,7 @@ const RoomBooking = ({ route }) => {
     const fetchUsers = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:10000/userdetails/?username=${searchParams.get(
+          `${process.env.URL}/userdetails/?username=${searchParams.get(
             "username"
           )}`
         );
@@ -261,6 +262,7 @@ const RoomBooking = ({ route }) => {
     console.log("Room Id: ", id);
     try {
       axios.put(`http://localhost:10000/updateroombookingdetails?id=${id}`);
+      alert(`Booking of room with id : ${id} is canceled`);
       window.location.reload(false);
     } catch (err) {}
   };

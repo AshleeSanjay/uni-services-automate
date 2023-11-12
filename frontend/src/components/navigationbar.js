@@ -12,7 +12,7 @@ const Navigationbar = () => {
         <Navbar.Brand href="#" className="d-flex p-2">
           <img src={logo} className="logo-style" alt="" loading="lazy" />
           <div style={{ marginTop: "10px" }}>
-            <label style={{ color: "white" }}>Mahatma Gandhi University</label>
+            <label style={{ color: "white" }}>Vidhya Bharathi University</label>
           </div>
         </Navbar.Brand>
         <Container>

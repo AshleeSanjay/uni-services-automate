@@ -7,12 +7,17 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  console.log("URL: ", process.env.REACT_APP_DEV_URL);
 
   const handleClick = async (e) => {
     e.preventDefault();
-
+    console.log("Username: ", username);
+    // console.log("Prod URL: ", process.env.REACT_APP_BASE_URL);
     try {
+      const prodUrl = `${process.env.REACT_APP_BASE_URL}/login?username=${username}`;
+
       const res = await axios.post(
+        // prodUrl
         `http://localhost:10000/login?username=${username}`
       );
 

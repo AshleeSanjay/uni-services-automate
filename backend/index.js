@@ -14,22 +14,22 @@ console.log(
   "Database: ",
   process.env.DATABASE,
   ", Password: ",
-  process.env.PASSWORD,
-  "DB_Port: ",
-  process.env.DB_PORT
+  process.env.PASSWORD
+  // "DB_Port: ",
+  // process.env.DB_PORT
 );
 const port = process.env.PORT || 10000;
-// const db = mysql.createConnection({
-const db = mysql.createPool({
+const db = mysql.createConnection({
+  // const db = mysql.createPool({
   host: process.env.HOST,
   user: process.env.USER,
   password: process.env.PASSWORD,
   database: process.env.DATABASE,
-  connectionLimit: 10,
-  db_port: process.env.DB_PORT,
+  // connectionLimit: 10,
+  // db_port: process.env.DB_PORT,
 });
 // db.connect((err) =>
-db.getConnection((err) => {
+db.connect((err) => {
   if (err) {
     console.error("Error connecting db: " + err.message);
     return;
@@ -78,6 +78,7 @@ app.post("/login", (req, res) => {
   });
 });
 app.get("/vehiclebookingdetails", (req, res) => {
+  console.log("Request: ", req);
   const q = `SELECT vbd.vbookingid as id,v.vehiclename as vehicleName,usr.username as userName, usr.userid as userId, vbd.bookeddate as bookedDate,vbd.bookedtime as bookedTime,vbd.returndate as returnDate FROM vehiclebookingdetails as vbd LEFT JOIN userdetails as usr ON vbd.userfid = usr.userid LEFT JOIN vehicles as v ON vbd.vregid = v.vid WHERE username ="${req.query.username}" AND bookedStatusFlag = 1`;
 
   db.query(q, (err, data) => {

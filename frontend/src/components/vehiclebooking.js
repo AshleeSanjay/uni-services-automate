@@ -32,14 +32,21 @@ const VehicleBooking = ({ route }) => {
     setUsrId(searchParams.get("userid"));
   }, [searchParams]);
   console.log("Username: ", usrName, "Password: ", psw, "Userid: ", usrId);
+
   useEffect(() => {
     const fetchVehicleDetails = async () => {
       try {
+        // const prodUrl = `${
+        //   process.env.REACT_APP_BASE_URL
+        // }/vehiclebookingdetails?username=${searchParams.get("username")}`;
+        // console.log("Prod URL: ", prodUrl);
+
         const res = await axios.get(
           `http://localhost:10000/vehiclebookingdetails?username=${searchParams.get(
             "username"
           )}`
         );
+
         setVehicleDetails(res.data);
       } catch (err) {
         console.log(err);
@@ -201,11 +208,11 @@ const VehicleBooking = ({ route }) => {
       </Form>
     );
   };
-
   const handleDelete = (id) => {
     console.log("Vehicle Registration Id: ", id);
     try {
       axios.put(`http://localhost:10000/updatevehiclebookingdetails?id=${id}`);
+      alert(`Booking of vehicle with registered id : ${id} is canceled`);
       window.location.reload(false);
     } catch (err) {}
   };
